@@ -1,0 +1,53 @@
+<div class="container">
+  <h3>User Form</h3>
+  <form #userForm="ngForm" (ngSubmit)="submit(userForm)">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input required minlength="8" maxlength="20" pattern="John Doe" type="text" name="name" class="form-control" ngModel #name="ngModel">
+      <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+        <p *ngIf="name.error.required">NAME IS REQUIRED</p>
+        <p *ngIf="name.error.minlength">NAME MUST BE ATLEAST 8 CHARECTORS LENGTH</p>
+        <p *ngIf="name.error.maxlength">NAME MUST BE ATMAX 20 CHARECTORS LENGTH</p>
+        <P *ngIf="name.error.pattern">NAME MUST ONLY BE JOHN DOE</P>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="username" class="form-control" ngModel>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" name="email" class="form-control" ngModel>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="number" name="phone" class="form-control" ngModel>
+    </div>
+    <div class="form-group">
+      <label for="website">Website</label>
+      <input type="text" name="website" class="form-control" ngModel>
+    </div>
+    <div class="radio">
+      <label for="gender" *ngFor="let gender of genders">
+        <input name="gender" ngModel [value]="gender" type="radio"> {{ gender }} <br>
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="communicationMode">Communication Option</label>
+      <select name="communicationMode" class="form-control" ngModel>
+        <option value=""></option>
+        <option *ngFor="let commOpt of communicationModes" [value]="commOpt">{{ commOpt }}</option>
+      </select>
+    </div>
+    <div class="checkbox">
+      <label for="agreement">
+        <input name="agreement" ngModel type="checkbox">I agree to terms and conditions.
+      </label>
+    </div>
+    <hr>
+    <pre>
+      {{ userForm.value | json }}
+    </pre>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+</div>
